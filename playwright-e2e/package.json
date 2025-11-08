@@ -4,8 +4,7 @@
     "start-server-and-test": "^2.1.2"
   },
   "scripts": {
-    "runopenfin":"openfin --launch --config ../openfinproject/openfin/app.json",
-    "rune2etests": "npx playwright test",
-    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200"
+    "openfin-playwright": "openfin --launch --config ../openfinproject/openfin/app.json && npx playwright test",
+    "e2e": "start-server-and-test \"npm --prefix ../angular-app run serve\" http://localhost:4200 openfin-playwright"
   }
 }

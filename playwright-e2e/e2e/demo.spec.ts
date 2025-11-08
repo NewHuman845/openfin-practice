@@ -1,11 +1,19 @@
-import {test,expect} from '@playwright/test'
+import { test, expect, chromium } from '@playwright/test';
 
+test('Connect to Chromium over CDP and test Angular app', async () => {
+  // Connect to the Chromium instance via CDP
+  const browser = await chromium.connectOverCDP('http://localhost:9222');
 
-test('demo', async ({ page }) => {
-    await page.setDefaultTimeout(60000);
-    await page.goto('https://www.google.com/');
+  // Use the first context (usually the default one)
+  const context = browser.contexts()[0];
+  const page = await context.newPage();
 
-    var title = await page.locator("//title").textContent()
-    expect(title).toBe('Google')
+  // Navigate to the Angular app
+  await page.goto('http://localhost:4200');
 
+  var text = await page.locator("//app-home/p").textContent();
+  expect(text).toBe("home works!")
+
+  // Clean up
+  await context.close();
 });

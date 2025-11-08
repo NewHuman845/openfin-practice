@@ -2,7 +2,7 @@ import { test, expect, chromium } from '@playwright/test';
 
 test('Connect to Chromium over CDP and test Angular app', async () => {
   // Connect to the Chromium instance via CDP
-  const browser = await chromium.connectOverCDP('http://localhost:9222');
+  const browser = await chromium.connectOverCDP('http://localhost:9093');
 
   // Use the first context (usually the default one)
   const context = browser.contexts()[0];

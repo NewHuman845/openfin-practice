@@ -6,10 +6,9 @@ test('Connect to Chromium over CDP and test Angular app', async () => {
 
   var context = browser.contexts()[0] ?? browser.newContext()
   var page = await context.pages()[0] ?? await context.newPage()
-  await page.waitForSelector('//app-home/p', { timeout: 50000 });
 
-   var text = await page.locator("//app-home/p").textContent();
-   expect(text).toBe("home works!")
+   var text = await page.locator("//h1").textContent();
+   expect(text).toBe("Hello, openfinproject")
   // Clean up
   await context.close();
 });

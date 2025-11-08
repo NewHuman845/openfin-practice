@@ -1,5 +1,10 @@
 {
   "devDependencies": {
-    "@playwright/test": "^1.56.1"
+    "@playwright/test": "^1.56.1",
+    "start-server-and-test": "^2.1.2"
+  },
+  "scripts": {
+    "test:e2e": "playwright test",
+    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200 test:e2e"
   }
 }

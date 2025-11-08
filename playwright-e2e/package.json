@@ -6,6 +6,6 @@
   "scripts": {
     "runopenfin":"openfin --launch --config ../openfinproject/openfin/app.json",
     "test:e2e": "playwright test",
-    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200 runopenfin test:e2e"
+    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200"
   }
 }

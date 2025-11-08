@@ -5,7 +5,7 @@ const browser = await chromium.connectOverCDP('http://localhost:9093');
 const context = browser.contexts()[0] ?? await browser.newContext();
 
 // Wait for a usable page
-let page = context.pages().find(p => p.url() !== 'about:blank');
+let page = context.pages().find(p => p.url().includes('blank'));
 if (!page) {
   page = await context.newPage();
 }

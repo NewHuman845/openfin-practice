@@ -6,8 +6,7 @@
   },
   "scripts": {
     "wait-openfin": "npx wait-on tcp:9091",
-    "openfin-playwright": "npx openfin --launch --config ../openfinproject/openfin/app.json &",
     "runtests":"npx playwright test",
-    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200"
+    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200 openfin-playwright"
   }
 }

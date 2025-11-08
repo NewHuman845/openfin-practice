@@ -5,7 +5,7 @@
     "wait-on": "^9.0.1"
   },
   "scripts": {
-    "wait-openfin": "npx wait-on tcp:9091",
+    "wait-openfin": "npx wait-on tcp:9093",
     "openfin-playwright": "npx openfin-cli --launch --config ../openfinproject/openfin/app.json > openfin.log 2>&1 &",
     "runtests":"npx playwright test",
     "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200 openfin-playwright"

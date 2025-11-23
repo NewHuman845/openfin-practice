@@ -6,7 +6,7 @@ let context : BrowserContext;
 let page : Page;
 
 When('the application is launched', async function () {
-browser = await chromium.connectOverCDP('http://localhost:9093');
+browser = await chromium.connectOverCDP('http://localhost:9097');
 context = browser.contexts()[0] ?? await browser.newContext();
 
 // Wait for a usable page

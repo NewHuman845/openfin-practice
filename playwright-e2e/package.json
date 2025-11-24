@@ -10,9 +10,6 @@
     "wait-on": "^9.0.1"
   },
   "scripts": {
-    "openfin-playwright": "npx openfin-cli --launch --config ../openfinproject/openfin/app.json > openfin.log 2>&1 &",
-    "runtests": "npx playwright test",
-    "e2e": "start-server-and-test \"npm --prefix ../openfinproject run serve\" http://localhost:4200 openfin-playwright",
-    "cucumber:e2e": "cucumber-js test --format html:reports/cucumber_report.html"
+    "cucumber:e2e": "cucumber-js test --format html:reports/playwright_report.html"
   }
 }

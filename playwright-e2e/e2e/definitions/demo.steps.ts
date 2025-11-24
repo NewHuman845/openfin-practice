@@ -6,6 +6,8 @@ let context : BrowserContext;
 let page : Page;
 
 When('the application is launched', async function () {
+     await waitForCDP(9097);
+
 browser = await chromium.connectOverCDP('http://localhost:9097');
 context = browser.contexts()[0] ?? await browser.newContext();
 
@@ -30,3 +32,23 @@ expect(text?.trim()).toBe('home works!');
 await context.close();
 
 });
+
+async function waitForCDP(port: number, retries = 10, delayMs = 1000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(`http://localhost:${port}/json/version`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.webSocketDebuggerUrl) {
+          console.log("CDP is ready:", json.webSocketDebuggerUrl);
+          return;
+        }
+      }
+    } catch (err) {
+      // swallow errors until retries exhausted
+    }
+    console.log(`Retry ${i + 1}/${retries}... waiting for CDP`);
+    await new Promise(r => setTimeout(r, delayMs));
+  }
+  throw new Error(`CDP not available on port ${port}`);
+}

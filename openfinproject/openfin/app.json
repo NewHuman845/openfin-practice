@@ -7,6 +7,6 @@
   },
   "runtime": {
     "version": "stable",
-    "arguments": "--remote-debugging-port=9097"
+    "arguments": "--remote-debugging-port=9222"
   }
 }

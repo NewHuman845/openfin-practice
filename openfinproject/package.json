@@ -2,13 +2,7 @@
   "name": "openfinproject",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve": "ng serve --host 0.0.0.0 --port 4200",
-    "run:openfin": "npx openfin-cli --launch --config ./openfin/app.json"
+    "start": "ng serve"
   },
   "prettier": {
     "printWidth": 100,

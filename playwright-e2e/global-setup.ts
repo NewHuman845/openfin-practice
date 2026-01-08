@@ -1,41 +1,36 @@
-import { exec } from "child_process";
+import { spawn } from "child_process";
 import net from "net";
 
-
-/**
- * Wait until a TCP port is bound (listening).
- */
-async function waitForPort(port: number, host = "127.0.0.1", timeoutMs = 30000): Promise<void> {
-  const start = Date.now();
-
-  return new Promise((resolve, reject) => {
-    const check = () => {
-      const socket = net.createConnection(port, host);
+async function waitForPort(port: number, retries = 20, delay = 1000): Promise<void> {
+  for (let i = 0; i < retries; i++) {
+    const isOpen = await new Promise<boolean>(resolve => {
+      const socket = net.createConnection(port, "127.0.0.1");
       socket.once("connect", () => {
         socket.end();
-        resolve();
+        resolve(true);
       });
-      socket.once("error", () => {
-        if (Date.now() - start > timeoutMs) {
-          reject(new Error(`Timeout waiting for port ${port}`));
-        } else {
-          setTimeout(check, 500);
-        }
-      });
-    };
-    check();
-  });
+      socket.once("error", () => resolve(false));
+    });
+    if (isOpen) return;
+    await new Promise(r => setTimeout(r, delay));
+  }
+  throw new Error(`Port ${port} not available after ${retries * delay}ms`);
 }
 
-async function globalSetup() {
+export default async function globalSetup() {
   console.log("Launching OpenFin app…");
 
-  // Kick off OpenFin launch
-  exec('npx openfin --launch --config ../openfinproject/openfin/app.json',(error:any)=>{
-    if (error) {
-      console.error(`Error launching OpenFin: ${error}`);
-      return;
-    }
+  // Spawn OpenFin detached so it doesn’t block
+  const child = spawn("npx", ["openfin", 
+    "--launch", 
+    "--config", "\"../openfinproject/openfin/app.json\""], {
+    stdio: "inherit",
+    shell: true,
+    detached: true,
+  });
+
+  child.on("error", err => {
+    console.error("Failed to launch OpenFin:", err);
   });
 
   console.log("Waiting for OpenFin to bind to port 9222…");
@@ -43,5 +38,3 @@ async function globalSetup() {
 
   console.log("OpenFin is ready on port 9222.");
 }
-
-export default globalSetup;

@@ -2,7 +2,7 @@
   "startup_app": {
     "name": "AngularOpenFinApp",
     "url": "http://localhost:4200",
-    "uuid": "angular-openfin-app-012",
+    "uuid": "angular-openfin-app-013-1",
     "autoShow": true
   },
   "runtime": {

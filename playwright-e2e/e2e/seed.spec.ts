@@ -2,7 +2,8 @@ import { spawn } from 'child_process';
 import { test } from '@playwright/test';
 
 test('Run cucumber features', async () => {
-  const proc = spawn('npx', ['cucumber-js'], { shell: true, stdio: 'inherit' });
+  const proc = spawn('npx', ['cucumber-js', 'test', '--format', 'html:reports/playwright_report.html'], 
+    { shell: true, stdio: 'inherit' });
 
   await new Promise((resolve, reject) => {
     proc.on('exit', (code: number) => {
